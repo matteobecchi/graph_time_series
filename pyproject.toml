@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "graph-time-series"
 maintainers = [{ name = "Matteo Becchi", email = "bechmath@gmail.com" }]
 
-dependencies = ["numpy"]
+dependencies = ["numpy", "networkx"]
 requires-python = ">=3.8"
 dynamic = ["version"]
 readme = "README.rst"
@@ -90,5 +90,5 @@ disallow_any_generics = true
 exclude = 'docs/build/html/_static'
 
 [[tool.mypy.overrides]]
-module = ['matplotlib.*']
+module = ['matplotlib.*', 'networkx.*']
 ignore_missing_imports = true
