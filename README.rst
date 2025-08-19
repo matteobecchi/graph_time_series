@@ -1,5 +1,5 @@
-:maintainers:
-    `matteobecchi <https://github.com/matteobecchi/>`_;
+:maintainer:
+    `matteobecchi <https://github.com/matteobecchi/>`_
 :documentation: TBD
 
 Overview
