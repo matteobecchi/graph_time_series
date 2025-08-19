@@ -7,8 +7,6 @@ from pathlib import Path
 import MDAnalysis
 import numpy as np
 import pytest
-from numpy.testing import assert_allclose
-
 from dynsight.logs import logger
 from dynsight.trajectory import (
     ClusterInsight,
@@ -17,6 +15,7 @@ from dynsight.trajectory import (
     OnionSmoothInsight,
     Trj,
 )
+from numpy.testing import assert_allclose
 
 TRJ_SHAPE = (2, 21)
 

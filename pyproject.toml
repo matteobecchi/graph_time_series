@@ -3,19 +3,14 @@ requires = ["setuptools", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dynsight"
-maintainers = [
-    { name = "Andrew Tarzia", email = "andrew.tarzia@gmail.com" },
-    { name = "Matteo Becchi", email = "bechmath@gmail.com" },
-    { name = "Simone Martino", email = "s.martino0898@gmail.com" },
-]
+name = "graph-time-series"
+maintainers = [{ name = "Matteo Becchi", email = "bechmath@gmail.com" }]
 
-dependencies = ["numpy", "dscribe", "tropea-clustering", "MDAnalysis", "deeptime"]
-# Set by cpctools.
+dependencies = ["numpy"]
 requires-python = ">=3.8"
 dynamic = ["version"]
 readme = "README.rst"
-description = "Simplifies analysis of simulation and experimental trajectories."
+description = "Tools for the handling of time-series of graphs."
 
 [project.optional-dependencies]
 dev = [
@@ -32,8 +27,8 @@ dev = [
 ]
 
 [project.urls]
-github = "https://github.com/GMPavanLab/dynsight"
-documentation = "https://dynsight.readthedocs.io/en/latest/"
+github = "https://github.com/matteobecchi/graph_time_series"
+#documentation = "https://dynsight.readthedocs.io/en/latest/"
 
 [tool.setuptools_scm]
 
@@ -95,24 +90,5 @@ disallow_any_generics = true
 exclude = 'docs/build/html/_static'
 
 [[tool.mypy.overrides]]
-module = [
-    'ase.*',
-    'dscribe.descriptors.*',
-    'matplotlib.*',
-    'MDAnalysis.*',
-    'numba.*',
-    'dynsight.onion.plot.*',
-    'scipy.*',
-    'tropea_clustering.*',
-    'h5py.*',
-    'SOAPify.*',
-    'deeptime.decomposition.*',
-    'yaml.*',
-    'Pillow.*',
-    'ultralytics.*',
-    'opencv-python.*',
-    'cv2.*',
-    'deeptime.*',
-    'sklearn.decomposition.*'
-]
+module = ['matplotlib.*']
 ignore_missing_imports = true

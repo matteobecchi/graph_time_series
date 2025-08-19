@@ -1,29 +1,12 @@
-"""dynsight package."""
+"""graph_time_series package."""
 
-from dynsight import (
-    analysis,
-    data_processing,
-    descriptors,
-    hdf5er,
-    lens,
-    logs,
-    onion,
-    soap,
-    trajectory,
-    utilities,
-    vision,
-)
+from . import observables, plotting
+from .graph import Graph
+from .timeseries import GraphTimeSeries
 
 __all__ = [
-    "analysis",
-    "data_processing",
-    "descriptors",
-    "hdf5er",
-    "lens",
-    "logs",
-    "onion",
-    "soap",
-    "trajectory",
-    "utilities",
-    "vision",
+    "Graph",
+    "GraphTimeSeries",
+    "observables",
+    "plotting",
 ]
