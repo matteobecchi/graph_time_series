@@ -75,5 +75,4 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
       - run: pip install -e '.[dev]'
-      - run: sphinx-build -b doctest docs/source docs/build/doctest
       - run: make -C docs doctest
