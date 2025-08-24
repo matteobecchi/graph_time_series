@@ -18,7 +18,7 @@ dev = [
     "mypy",
     "pytest",
     "pytest-cov",
-    "sphinx",
+    "sphinx>=8.2.3,<9",
     "sphinx-copybutton",
     "build",
     "twine",
