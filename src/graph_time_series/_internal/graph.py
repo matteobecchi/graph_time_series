@@ -1,28 +1,36 @@
 """The single graph class."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from numpy.typing import NDArray
+
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
-from numpy.typing import NDArray
+
+from . import observables
 
 
 class Graph:
-    """Wrapper around a nx graph representing exchanges at one timestep."""
+    """Wrapper around a nx graph representing exchanges at one timestep.
+
+    Attributes:
+    -----------
+    adjacency_matrix :
+        The adjacency matrix representing exchanges between nodes.
+    directed :
+        Whether the graph is directed.
+    """
 
     def __init__(
         self,
         adjacency_matrix: NDArray[np.float64],
         directed: bool = False,
     ) -> None:
-        """Initialize a graph from an adjacency matrix.
-
-        Parameters
-        ----------
-        adjacency_matrix :
-            The adjacency matrix representing exchanges between nodes.
-        directed :
-            Whether the graph is directed.
-        """
+        """Initialize a graph from an adjacency matrix."""
         self.directed = directed
         self.nx_graph = nx.DiGraph() if directed else nx.Graph()
         self._build_graph(adjacency_matrix)
@@ -34,23 +42,17 @@ class Graph:
                 self.nx_graph.add_edge(i, j, weight=weight)
 
     # --- Graph observables ---
-    def degree(self) -> dict:
+    def degree(self) -> dict[Any, float]:
         """Return a dict of node degrees (weighted if graph is weighted)."""
-        return dict(self.nx_graph.degree(weight="weight"))
+        return observables.degree(self)
 
-    def clustering(self) -> dict:
+    def clustering(self) -> dict[Any, float]:
         """Return clustering coefficients per node."""
-        if self.directed:
-            return nx.clustering(
-                self.nx_graph.to_undirected(), weight="weight"
-            )
-        return nx.clustering(self.nx_graph, weight="weight")
+        return observables.clustering(self)
 
-    def diameter(self) -> float:
+    def diameter(self) -> int:
         """Return the diameter of the graph."""
-        if nx.is_connected(self.nx_graph.to_undirected()):
-            return nx.diameter(self.nx_graph.to_undirected())
-        return float("inf")  # or raise an exception
+        return observables.diameter(self)
 
     # --- Plotting ---
     def plot(self, **kwargs: object) -> None:

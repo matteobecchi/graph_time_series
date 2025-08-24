@@ -1,12 +1,13 @@
 """graph_time_series package."""
 
-from . import observables, plotting
-from .graph import Graph
-from .timeseries import GraphTimeSeries
+from ._internal import observables, plotting, utilities
+from ._internal.graph import Graph
+from ._internal.timeseries import GraphTimeSeries
 
 __all__ = [
     "Graph",
     "GraphTimeSeries",
     "observables",
     "plotting",
+    "utilities",
 ]
