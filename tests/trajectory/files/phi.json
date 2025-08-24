@@ -1,7 +1,0 @@
-{
-    "dataset_file": "phi.npy",
-    "meta": {
-        "r_cut": 10.0,
-        "selection": "all"
-    }
-}
