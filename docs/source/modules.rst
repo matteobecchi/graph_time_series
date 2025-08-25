@@ -7,3 +7,4 @@ Modules
   :recursive:
 
   graph_time_series
+  graph_time_series.observables

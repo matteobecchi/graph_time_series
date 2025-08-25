@@ -45,10 +45,31 @@ def degree(graph: Graph) -> dict[int, float]:
 def clustering(graph: Graph) -> dict[int, float]:
     """Return clustering coefficients per node.
 
-    Parameters
-    ----------
-    graph: graph_time_series.Graph
-        The graph we want to compute the nodes' degrees.
+    Parameters:
+
+        graph: graph_time_series.Graph
+            The graph we want to compute the nodes' clustering coefficient.
+
+    Example:
+
+        .. testcode:: clust-test
+
+            from graph_time_series import Graph
+            from graph_time_series.observables import clustering
+            from graph_time_series.utilities import random_adj_matrix_er
+
+            # Create a random graph
+            ad_mat = random_adj_matrix_er(n=10, seed=42)
+            graph = Graph(ad_mat)
+
+            # Compute the clustering coefficient of the nodes
+            clust_dict = clustering(graph)
+
+        .. testcode:: clust-test
+            :hide:
+
+            import numpy as np
+            assert np.isclose(clust_dict[2], 1/3)
     """
     return dict(nx.clustering(graph.nx_graph.to_undirected(), weight="weight"))
 
@@ -59,7 +80,27 @@ def diameter(graph: Graph) -> int:
     Parameters
     ----------
     graph: graph_time_series.Graph
-        The graph we want to compute the nodes' degrees.
+        The graph we want to compute the diameter.
+
+    Example:
+
+        .. testcode:: diameter-test
+
+            from graph_time_series import Graph
+            from graph_time_series.observables import diameter
+            from graph_time_series.utilities import random_adj_matrix_er
+
+            # Create a random graph
+            ad_mat = random_adj_matrix_er(n=10, seed=42)
+            graph = Graph(ad_mat)
+
+            # Compute the diameter of the graph
+            diameter = diameter(graph)
+
+        .. testcode:: diameter-test
+            :hide:
+
+            assert diameter == 3
     """
     if nx.is_connected(graph.nx_graph.to_undirected()):
         return nx.diameter(graph.nx_graph.to_undirected())

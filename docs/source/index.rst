@@ -10,7 +10,7 @@
   :maxdepth: 2
   :caption: Modules:
 
-  Modules <modules>
+  modules <modules>
 
 Overview
 ========
