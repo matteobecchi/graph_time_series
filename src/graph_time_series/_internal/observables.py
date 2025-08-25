@@ -14,10 +14,30 @@ import networkx as nx
 def degree(graph: Graph) -> dict[int, float]:
     """Return a dict of node degrees (weighted if graph is weighted).
 
-    Parameters
-    ----------
-    graph: graph_time_series.Graph
-        The graph we want to compute the nodes' degrees.
+    Parameters:
+
+        graph: graph_time_series.Graph
+            The graph we want to compute the nodes' degrees.
+
+    Example:
+
+        .. testcode:: degree-test
+
+            from graph_time_series import Graph
+            from graph_time_series.observables import degree
+            from graph_time_series.utilities import random_adj_matrix_er
+
+            # Create a random graph
+            ad_mat = random_adj_matrix_er(n=10, seed=42)
+            graph = Graph(ad_mat)
+
+            # Compute the degree of the nodes
+            degrees_dict = degree(graph)
+
+        .. testcode:: degree-test
+            :hide:
+
+            assert degrees_dict[0] == 4
     """
     return dict(graph.nx_graph.degree(weight="weight"))
 
