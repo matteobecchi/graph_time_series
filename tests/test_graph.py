@@ -16,14 +16,17 @@ def here() -> Path:
     return Path(__file__).parent
 
 
+@pytest.fixture(scope="module")
+def graph() -> Graph:
+    ad_mat = utilities.random_adj_matrix_er(n=10, seed=42)
+    return Graph(ad_mat)
+
+
 # ---------------- Tests ----------------
 
 
-def test_graph() -> None:
+def test_graph(graph: Graph) -> None:
     """Test initialization and methods for Graph class."""
-    ad_mat = utilities.random_adj_matrix_er(n=10, seed=42)
-    graph = Graph(ad_mat)
-
     graph.degree()
     graph.clustering()
     graph.diameter()
