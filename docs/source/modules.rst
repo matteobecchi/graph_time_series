@@ -8,3 +8,4 @@ Modules
 
   graph_time_series
   graph_time_series.observables
+  graph_time_series.plotting
