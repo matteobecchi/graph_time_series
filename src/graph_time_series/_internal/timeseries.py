@@ -7,8 +7,9 @@ from typing import TYPE_CHECKING, Any, Callable
 from graph_time_series import observables
 
 if TYPE_CHECKING:
-    import numpy as np
     from numpy.typing import NDArray
+
+import numpy as np
 
 from .graph import Graph
 
@@ -44,8 +45,10 @@ class GraphTimeSeries:
         return len(self.graphs)
 
     # --- Observables over time ---
-    def observable_over_time(self, fn: Callable[[Graph], Any]) -> list[Any]:
-        """Apply an observable function to each graph in the series.
+    def local_observable_over_time(
+        self, fn: Callable[[Graph], Any]
+    ) -> NDArray[np.float64]:
+        """Apply a local observable function to each graph in the series.
 
         Parameters
         ----------
@@ -55,18 +58,39 @@ class GraphTimeSeries:
         Returns:
         -------
         list
-            list of observable values, one per timestep.
+            list of average values, one per timestep.
         """
-        return [fn(g) for g in self.graphs]
+        list_of_dicts = [fn(g) for g in self.graphs]
+        tmp_list = [
+            np.mean([float(v) for v in d.values()]) for d in list_of_dicts
+        ]
+        return np.array(tmp_list)
 
-    def clustering_over_time(self) -> list[dict[int, float]]:
+    def global_observable_over_time(
+        self, fn: Callable[[Graph], Any]
+    ) -> NDArray[np.float64]:
+        """Apply a global observable function to each graph in the series.
+
+        Parameters
+        ----------
+        fn :
+            A function that takes a Graph and returns an observable.
+
+        Returns:
+        -------
+        list
+            list of values, one per timestep.
+        """
+        return np.array([fn(g) for g in self.graphs])
+
+    def clustering_over_time(self) -> NDArray[np.float64]:
         """Return clustering coefficients for each graph in the series."""
-        return self.observable_over_time(observables.clustering)
+        return self.local_observable_over_time(observables.clustering)
 
-    def degree_over_time(self) -> list[dict[int, float]]:
+    def degree_over_time(self) -> NDArray[np.float64]:
         """Return node degrees for each graph in the series."""
-        return self.observable_over_time(observables.degree)
+        return self.local_observable_over_time(observables.degree)
 
-    def diameter_over_time(self) -> list[float]:
+    def diameter_over_time(self) -> NDArray[np.float64]:
         """Return graph diameters for each graph in the series."""
-        return self.observable_over_time(observables.diameter)
+        return self.global_observable_over_time(observables.diameter)
