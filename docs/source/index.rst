@@ -12,6 +12,13 @@
 
   modules <modules>
 
+.. toctree::
+  :hidden:
+  :maxdepth: 2
+  :caption: Recipes:
+
+  first_example <example_analysis>
+
 Overview
 ========
 

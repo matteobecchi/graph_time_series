@@ -32,8 +32,7 @@ def plot_global_obs(
     )
 
     fig, ax = plt.subplots()
-    ax.plot(time_array, time_series)
+    ax.plot(time_array, time_series, marker="o")
     ax.set_xlabel("Frame")
     fig.savefig(fig_path, dpi=600)
-    plt.show()
     plt.close()
