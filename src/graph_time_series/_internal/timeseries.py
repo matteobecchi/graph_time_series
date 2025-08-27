@@ -91,6 +91,14 @@ class GraphTimeSeries:
         """Return node degrees for each graph in the series."""
         return self.local_observable_over_time(observables.degree)
 
+    def n_nodes_over_time(self) -> NDArray[np.float64]:
+        """Return the number of nodes for each graph in the series."""
+        return self.local_observable_over_time(observables.n_nodes)
+
     def diameter_over_time(self) -> NDArray[np.float64]:
         """Return graph diameters for each graph in the series."""
         return self.global_observable_over_time(observables.diameter)
+
+    def aver_shortest_dist_over_time(self) -> NDArray[np.float64]:
+        """Return average shortest distance for each graph in the series."""
+        return self.global_observable_over_time(observables.average_distance)
