@@ -22,17 +22,24 @@ def random_adj_matrix_er(
     return nx.to_numpy_array(g)
 
 
-def random_adj_matrix_ba(n: int, m: int = 2) -> NDArray[np.float64]:
+def random_adj_matrix_ba(
+    n: int,
+    m: int = 2,
+    seed: int | None = None,
+) -> NDArray[np.float64]:
     """Generate adjacency matrix from Barabási-Albert scale-free graph."""
-    g = nx.barabasi_albert_graph(n, m)
+    g = nx.barabasi_albert_graph(n, m, seed=seed)
     return nx.to_numpy_array(g)
 
 
 def random_adj_matrix_ws(
-    n: int, k: int = 2, p: float = 0.1
+    n: int,
+    k: int = 2,
+    p: float = 0.1,
+    seed: int | None = None,
 ) -> NDArray[np.float64]:
     """Generate adjacency matrix from Watts-Strogatz small-world graph."""
-    g = nx.watts_strogatz_graph(n, k, p)
+    g = nx.watts_strogatz_graph(n, k, p, seed=seed)
     return nx.to_numpy_array(g)
 
 
