@@ -1,4 +1,4 @@
-Cmoputing observables on a graph time-series
+Computing observables on a graph time-series
 ============================================
 
 This recipe explains how to compute observables from a
@@ -17,6 +17,7 @@ some update function.
     mat_0 = random_adj_matrix_ba(
         n=n_nodes,  # Number of nodes
         m=2,        # Barabasi-Albert graph parameter
+        seed=42,
     )
 
     def update_ad_matrix(
@@ -66,16 +67,19 @@ These quantities can be easily plotted using the `plotting` module:
 
     output_path = Path("source/_static")
     plot_global_obs(
-        Path(output_path / "Fig1_1.png"),
-        average_node_degree,
+        fig_path=Path(output_path / "Fig1_1.png"),
+        time_series=average_node_degree,
+        y_label="Average degree",
     )
     plot_global_obs(
-        Path(output_path / "Fig1_2.png"),
-        average_node_cl_coeff,
+        fig_path=Path(output_path / "Fig1_2.png"),
+        time_series=average_node_cl_coeff,
+        y_label="Average clustering coeff.",
     )
     plot_global_obs(
-        Path(output_path / "Fig1_3.png"),
-        graph_diameter,
+        fig_path=Path(output_path / "Fig1_3.png"),
+        time_series=graph_diameter,
+        y_label="Graph's diameter",
     )
 
 .. testcode:: recipe1-test
