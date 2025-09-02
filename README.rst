@@ -5,12 +5,16 @@
 Overview
 ========
 
-`graph-time-series` is bla bla bla.
+The `graph-time-series` python package offers a collection of tools to compute
+graph-related quantities on graphs and, in particular, on time-series of graphs.
+It is based on the `networkx` package for the graph implementation.
 
 Installation
 ============
 
-TBD
+Clone this repository on your machine and run::
+
+    $ pip install -e .
 
 Developer Setup
 ---------------
