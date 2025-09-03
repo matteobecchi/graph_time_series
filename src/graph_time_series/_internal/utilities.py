@@ -53,3 +53,24 @@ def random_weighted_adj_matrix(
     mat = mask * weights
     np.fill_diagonal(mat, 0)  # no self-loops
     return mat
+
+
+def eigenpairs(
+    matrix: NDArray[np.float64],
+) -> tuple[NDArray[np.float64], NDArray[np.float64]]:
+    """Compute eigenvalues and eigenvectors of a symmetric matrix.
+
+    This is typically used for the graph Laplacian.
+
+    Parameters:
+        matrix:
+            A symmetric (Hermitian) matrix, e.g. Laplacian.
+
+    Returns:
+        - eigenvalues is a 1D array of shape (n,)
+        - eigenvectors is a 2D array of shape (n, n),
+            with column j the eigenvector corresponding to eigenvalues[j].
+    """
+    # eigh is optimized for symmetric/Hermitian matrices
+    eigenvalues, eigenvectors = np.linalg.eigh(matrix)
+    return eigenvalues, eigenvectors
