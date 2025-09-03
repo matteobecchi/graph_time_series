@@ -5,12 +5,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    import numpy as np
     from numpy.typing import NDArray
 
     from .graph import Graph
 
 import networkx as nx
+import numpy as np
+from scipy.stats import linregress
 
 
 def laplacian(graph: Graph) -> NDArray[np.float64]:
@@ -43,3 +44,72 @@ def laplacian(graph: Graph) -> NDArray[np.float64]:
     """
     laplacian = nx.laplacian_matrix(graph.nx_graph, weight="weight")
     return laplacian.toarray()
+
+
+def spectral_dimension(
+    graph: Graph,
+    bins: int = 50,
+    fit_range: tuple[int, int] = (1, 10),
+    eigen_threshold: float = 1e-10,
+) -> float:
+    r"""Compute the spectral dimension of a graph.
+
+    For a very large graph, the spectral dimension d_s is defined from the
+    long-time behavior of the return probability of a random walk:
+
+    .. math::
+        P(t)\sim t^{-d_s / 2}, t\rightarrow \infty
+
+    where P(t) is the probability that a random walker starting at some node
+    is back at the same node after t steps. Equivalently, d_s can be extracted
+    from the density of states (DOS) of the Laplacian eigenvalues near zero:
+
+    .. math::
+        \rho(\lambda) \sim \lambda^{d_s/2 - 1}, \lambda\rightarrow 0
+
+    Parameters:
+        graph: the graph to compute the spectral dimension.
+        bins: the number of bins for the eigenvalues DOS.
+        fit_range: the indices of the DOS to include in the fitting.
+        eigen_threshold: eigenvalues smaller than this threshold are ignored.
+
+    Example:
+
+        .. testcode:: spectral-test
+
+            from graph_time_series import Graph
+            from graph_time_series.observables import spectral_dimension
+            from graph_time_series.utilities import random_adj_matrix_ws
+
+            # Create a random graph
+            ad_mat = random_adj_matrix_ws(n=100, seed=42)
+            graph = Graph(ad_mat)
+
+            # Compute the spectral dimension
+            d_s = spectral_dimension(graph)
+
+        .. testcode:: spectral-test
+            :hide:
+
+            import numpy as np
+            assert np.isclose(d_s, 1.3164869124177108)
+    """
+    l_sparse = laplacian(graph).astype(float)  # keep as sparse
+    # Convert to dense for eigvalsh
+    l_matrix = l_sparse.todense() if hasattr(l_sparse, "todense") else l_sparse
+
+    # Eigenvalues
+    eigvals = np.linalg.eigvalsh(l_matrix)
+    eigvals = eigvals[eigvals > eigen_threshold]
+
+    # Histogram DOS
+    hist, edges = np.histogram(eigvals, bins=bins, density=True)
+    centers = 0.5 * (edges[:-1] + edges[1:])
+
+    # Select fitting range (small lambda)
+    x = np.log(centers[fit_range[0] : fit_range[1]])
+    y = np.log(hist[fit_range[0] : fit_range[1]])
+
+    slope, intercept, _, _, _ = linregress(x, y)
+
+    return 2 * (slope + 1)
