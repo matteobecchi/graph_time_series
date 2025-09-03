@@ -42,23 +42,23 @@ class Graph:
                 self.nx_graph.add_edge(i, j, weight=weight)
 
     # --- Graph observables ---
-    def n_nodes(self) -> int:
+    def get_n_nodes(self) -> int:
         """Return the number of nodes."""
         return observables.n_nodes(self)
 
-    def degree(self) -> dict[Any, float]:
+    def get_degree(self) -> dict[Any, float]:
         """Return a dict of node degrees (weighted if graph is weighted)."""
         return observables.degree(self)
 
-    def clustering(self) -> dict[Any, float]:
+    def get_clustering(self) -> dict[Any, float]:
         """Return clustering coefficients per node."""
         return observables.clustering(self)
 
-    def diameter(self) -> int:
+    def get_diameter(self) -> int:
         """Return the diameter of the graph."""
         return observables.diameter(self)
 
-    def average_distance(self) -> float:
+    def get_average_distance(self) -> float:
         """Return the average shortest distance between nodes."""
         return observables.average_distance(self)
 

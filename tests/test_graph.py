@@ -27,8 +27,8 @@ def graph() -> Graph:
 
 def test_graph(graph: Graph) -> None:
     """Test initialization and methods for Graph class."""
-    graph.n_nodes()
-    graph.degree()
-    graph.clustering()
-    graph.diameter()
-    graph.average_distance()
+    graph.get_n_nodes()
+    graph.get_degree()
+    graph.get_clustering()
+    graph.get_diameter()
+    graph.get_average_distance()

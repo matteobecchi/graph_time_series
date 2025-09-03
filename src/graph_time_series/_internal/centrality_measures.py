@@ -66,7 +66,7 @@ def h_index_centrality(graph: Graph) -> dict[int, int]:
             assert dict_centrality[0] == 3
     """
     # Precompute all degrees
-    deg = graph.degree()
+    deg = graph.get_degree()
     centrality: dict[int, int] = {}
 
     for node in graph.nx_graph.nodes():
