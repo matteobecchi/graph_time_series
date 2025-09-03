@@ -90,5 +90,5 @@ disallow_any_generics = true
 exclude = 'docs/build/html/_static'
 
 [[tool.mypy.overrides]]
-module = ['matplotlib.*', 'networkx.*']
+module = ['matplotlib.*', 'networkx.*', 'scipy.stats.*']
 ignore_missing_imports = true
