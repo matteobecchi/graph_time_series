@@ -44,6 +44,10 @@ class GraphTimeSeries:
         """Return the number of timesteps in the series."""
         return len(self.graphs)
 
+    def append_graph(self, graph: Graph) -> None:
+        """Append a graph at the end of the list."""
+        self.graphs.append(graph)
+
     # --- Observables over time ---
     def local_observable_over_time(
         self, fn: Callable[[Graph], Any]

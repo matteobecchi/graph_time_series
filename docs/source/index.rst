@@ -18,6 +18,7 @@
   :caption: Recipes:
 
   first_example <example_analysis>
+  Building BA graph <building_ba_graph>
 
 Overview
 ========
