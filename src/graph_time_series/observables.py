@@ -6,7 +6,11 @@ from ._internal.centrality_measures import (
     degree_centrality,
     h_index_centrality,
 )
-from ._internal.laplacian import laplacian, spectral_dimension
+from ._internal.laplacian import (
+    laplacian,
+    spectral_dimension,
+    walk_length_distribution,
+)
 from ._internal.observables import (
     average_distance,
     clustering,
@@ -27,4 +31,5 @@ __all__ = [
     "laplacian",
     "n_nodes",
     "spectral_dimension",
+    "walk_length_distribution",
 ]

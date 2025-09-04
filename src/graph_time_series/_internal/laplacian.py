@@ -46,6 +46,52 @@ def laplacian(graph: Graph) -> NDArray[np.float64]:
     return laplacian.toarray()
 
 
+def walk_length_distribution(graph: Graph, max_length: int) -> dict[int, int]:
+    """Return distribution of closed walk counts up to given length.
+
+    For each l in (1, max_length), compute:
+
+        W_l = sum(λ_i^l)
+
+    where λ_i are the Laplacian eigenvalues.
+
+    Parameters:
+        graph: input Graph.
+        max_length: maximum walk length to compute.
+
+    Returns:
+        A dict mapping walk length l -> spectral walk count W_l.
+
+
+    Example:
+
+        .. testcode:: walks-test
+
+            from graph_time_series import Graph
+            from graph_time_series.observables import walk_length_distribution
+            from graph_time_series.utilities import random_adj_matrix_er
+
+            # Create a random graph
+            ad_mat = random_adj_matrix_er(n=10, seed=42)
+            graph = Graph(ad_mat)
+
+            # Compute the Laplacian
+            walk_dist = walk_length_distribution(graph, 5)
+
+        .. testcode:: walks-test
+            :hide:
+
+            assert walk_dist[1] == 33
+    """
+    l_matrix = laplacian(graph)
+    eigvals = np.linalg.eigvalsh(l_matrix)
+
+    dist: dict[int, int] = {}
+    for ell in range(1, max_length + 1):
+        dist[ell] = int(np.sum(eigvals**ell))
+    return dist
+
+
 def spectral_dimension(
     graph: Graph,
     bins: int = 50,
