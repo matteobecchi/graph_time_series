@@ -77,19 +77,18 @@ def walk_length_distribution(graph: Graph, max_length: int) -> dict[int, int]:
 
             # Compute the Laplacian
             walk_dist = walk_length_distribution(graph, 5)
-            print(walk_dist)
 
         .. testcode:: walks-test
             :hide:
 
-            assert walk_dist[1] == 33
+            assert walk_dist[1] == 34
     """
     l_matrix = laplacian(graph)
     eigvals = np.linalg.eigvalsh(l_matrix)
 
     dist: dict[int, int] = {}
     for ell in range(1, max_length + 1):
-        dist[ell] = int(np.sum(eigvals**ell))
+        dist[ell] = round(np.sum(eigvals**ell))
     return dist
 
 
