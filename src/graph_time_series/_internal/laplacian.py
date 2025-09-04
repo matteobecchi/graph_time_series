@@ -77,6 +77,7 @@ def walk_length_distribution(graph: Graph, max_length: int) -> dict[int, int]:
 
             # Compute the Laplacian
             walk_dist = walk_length_distribution(graph, 5)
+            print(walk_dist[1])
 
         .. testcode:: walks-test
             :hide:
