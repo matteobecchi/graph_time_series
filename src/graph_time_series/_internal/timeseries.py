@@ -97,7 +97,7 @@ class GraphTimeSeries:
 
     def n_nodes_over_time(self) -> NDArray[np.float64]:
         """Return the number of nodes for each graph in the series."""
-        return self.local_observable_over_time(observables.n_nodes)
+        return self.global_observable_over_time(observables.n_nodes)
 
     def diameter_over_time(self) -> NDArray[np.float64]:
         """Return graph diameters for each graph in the series."""
